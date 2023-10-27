@@ -160,7 +160,7 @@ $encounter->json();
 // Condition
 $condition = new Condition;
 $condition->addClinicalStatus('{status_klinis}'); // active, inactive, resolved. Default bila tidak dideklarasi = active
-$condition->addCategory('{kategori}'); // Diagnosis, Keluhan. Default : diagnosis
+$condition->addCategory('{kategori}'); // Diagnosis, Keluhan. Default : Diagnosis
 $condition->addCode('{kode_icd_10}'); // Kode ICD10
 $condition->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
 $condition->setEncounter('{id_encounter}'); // ID SATUSEHAT Encounter
