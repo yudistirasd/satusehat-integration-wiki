@@ -34,10 +34,6 @@ Based on : SATUSEHAT Mandate PMK 24 tahun 2022 (Deadline December 2023)
 - [x] Condition POST
 - [x] Condition PUT
 
-
-## Other work in progress
-### SATUSEHAT Rawat Jalan Fase 2
-
 #### 8. Observation Vital Sign (WIP)
 - [ ] Observation GET
 - [ ] Observation POST
