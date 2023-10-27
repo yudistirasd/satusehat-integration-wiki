@@ -142,7 +142,7 @@ $encounter = new Encounter;
  * Contoh : 31 Desember 2022 15:45 WIB : 2022-12-31T15:45:00+07:00
 */
 $statusHistory = ['arrived' => '{timestamp_kedatangan}', 
-                    'in-progress' => '{timestamp_pemeriksaan}', 
+                    'inprogress' => '{timestamp_pemeriksaan}', 
                     'finished' => '{timestamp_pulang}']; 
 
 $encounter->addRegistrationId('{kode_registrasi}'); // unique string free text (increments / UUID)
