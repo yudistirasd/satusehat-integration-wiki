@@ -1,9 +1,10 @@
 ## Mandatory Feature for SATUSEHAT Rawat Jalan
 Based on : SATUSEHAT Mandate PMK 24 tahun 2022 (Deadline December 2023)
 
-#### 1. OAuth & KYC
+#### 1. OAuth, KYC, Bundle Operation
 - [x] OAuth2 (POST)
 - [x] KYC SATUSEHAT Platform (Centang Biru SATUSEHAT Mobile)
+- [x] Bundle Operation
 
 #### 2. Organization
 - [x] Organization GET by ID
