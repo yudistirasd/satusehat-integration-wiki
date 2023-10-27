@@ -66,3 +66,5 @@ ORGID_PROD=xxxxxx
 CLIENTID_PROD=xxxxxx
 CLIENTSECRET_PROD=xxxxxx
 ```
+
+Now, you are good to go!
