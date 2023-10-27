@@ -87,7 +87,7 @@ $client = new OAuth2Client;
 ```php
 $client = new OAuth2Client;
 $body = ...... ; // JSON Object
-$resource = ......; // FHIR Resource (Organization, Location, Patient, Practitioner, Encounter, Condition)
+$resource = ......; // FHIR Resource (Bundle, Organization, Location, Patient, Practitioner, Encounter, Condition)
 
 // Format Agnostic POST
 [$statusCode, $response] = $client->ss_post($resource, $body);
