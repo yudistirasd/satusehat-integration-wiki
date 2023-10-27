@@ -138,7 +138,7 @@ $location->json();
 $encounter = new Encounter;
 
 /** 
- * timestamp_kedatangan, timestamp_pemeriksaan, timestamp_pulang = format Y-m-dTH:i:s+UTC
+ * timestamp_kedatangan, timestamp_pemeriksaan, timestamp_pulang berupa datetime dan nanti akan dikonversi menjadi ATOM format (Y-m-dTH:i:s+UTC)
  * Contoh : 31 Desember 2022 15:45 WIB : 2022-12-31T15:45:00+07:00
 */
 $statusHistory = ['arrived' => '{timestamp_kedatangan}', 
