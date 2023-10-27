@@ -119,7 +119,7 @@ use Satusehat\Integration\FHIR\Condition;
 $organization = new Organization;
 $organization->addIdentifier('{kode_unik_suborganisasi}'); // unique string free text (increments / UUID / inisial)
 $organization->setName('{nama_suborganisasi}'); // string free text
-dd($organization->json());
+$organization->json();
 ```
 
 ## Location
@@ -129,7 +129,7 @@ $location = new Location;
 $location->addIdentifier('{kode_unik_lokasi}'); // unique string free text (increments / UUID / inisial)
 $location->setName('{nama_lokasi}'); // string free text
 $location->addPhysicalType('{tipe_lokasi}'); // ro = ruangan, bu = bangunan, wi = sayap gedung, ve = kendaraan, ho = rumah, ca = kabined, rd = jalan, area = area. Default bila tidak dideklarasikan = ruangan
-dd($location->json());
+$location->json();
 ```
 
 ## Encounter
@@ -152,7 +152,7 @@ $encounter->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien 
 $encounter->addParticipant('{id_practitioner}', '{nama_dokter}'); // ID SATUSEHAT Dokter, Nama Dokter
 $encounter->addLocation('{id_location}', '{nama_poli}'); // ID SATUSEHAT Location, Nama Poli
 $encounter->addDiagnosis('{id_condition}', '{kode_icd_10}'); // ID SATUSEHAT Condition, Kode ICD10
-$dd($encounter->json());
+$encounter->json();
 ```
 
 ## Condition
