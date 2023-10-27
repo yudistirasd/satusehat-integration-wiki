@@ -90,10 +90,12 @@ $body = ...... ; // JSON Object
 $resource = ......; // FHIR Resource (Bundle, Organization, Location, Patient, Practitioner, Encounter, Condition)
 
 // Format Agnostic POST
+// All resources accepted
 [$statusCode, $response] = $client->ss_post($resource, $body);
 echo $statusCode, $response;
 
 // Format Agnostic PUT
+// All resources except Bundle
 $id = ...... ; // SATUSEHAT response ID
 [$statusCode, $response] = $client->ss_put($resource, $id, $body);
 echo $statusCode, $response;
