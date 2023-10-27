@@ -1,5 +1,3 @@
-# Welcome to the ```satusehat-integration``` library wiki!
-
 ## Quick Installation
 
 ### 1. Composer Require
@@ -26,20 +24,7 @@ php artisan vendor:publish --provider="Satusehat\Integration\SatusehatIntegratio
 php artisan migrate
 ```
 
-### 5. Publish ICD-10 Migration, Seeder, and CSV file
-```bash
-# Run to publish all assets regarding ICD-10
-php artisan vendor:publish --provider="Satusehat\Integration\SatusehatIntegrationServiceProvider" --tag=icd10
-
-# Run to migrate the ICD-10 table
-php artisan migrate
-
-# Run to seed the data
-php artisan db:seed --class=Icd10Seeder
-```
-
-
-### 6. Setup the environment
+### 5. Setup the environment
 Isilah Organization ID, Client ID dan Client Secret yang diberikan oleh SATUSEHAT di file .env
 
 ```env
@@ -66,5 +51,19 @@ ORGID_PROD=xxxxxx
 CLIENTID_PROD=xxxxxx
 CLIENTSECRET_PROD=xxxxxx
 ```
+
+
+## 6. Dry Run / Create Token
+
+```php
+/** 
+ * Uji coba echo Token yang sesuai dan di DB akan tersimpan
+ * Pastikan sudah mengisi konfigurasi di .env
+*/
+
+$client = new Satusehat\Integration\OAuth2Client;
+echo $client->token(); // Token Anda akan muncul
+```
+
 
 Now, you are good to go!
