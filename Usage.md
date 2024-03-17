@@ -142,10 +142,23 @@ $patient->setName('{nama_pasien}');
 
 /*
  *  Informasi tentang parameter addTelecom dapat dilihat di:
- *  telecom_code: https://www.hl7.org/fhir/R5/valueset-contact-point-system.html 
- *  telecom_use: https://www.hl7.org/fhir/R5/valueset-contact-point-use.html
+ *  telecom_code: https://www.hl7.org/fhir/R4/valueset-contact-point-system.html 
+ *  telecom_use: https://www.hl7.org/fhir/R4/valueset-contact-point-use.html
 */
 $patient->addTelecom('{telecom_code}', '{nomor_telecom}', '{telecom_use}');
+
+$address_detail = [
+    'address' => '{alamat}',
+    'city' => '{kota}',
+    'postalCode' => '{kode_pos}',
+    'country' => 'id-ID', // Kode negara
+    'provinceCode' => '{kode_provinsi}',
+    'cityCode' => '{kode_kabupaten/kota}',
+    'districtCode' => '{kode_kecamatan}',
+    'villageCode' => '{kode_wilayah}',
+    'rt' => '{rt}',
+    'rw' => '{rw}',
+];
 
 $patient->setGender('{male/female}');
 $patient->setBirthDate('{YYYY-MM-DD}');
@@ -153,7 +166,7 @@ $patient->setDeceased('{boolean}');
 $patient->setAddress($address_detail);
 
 /*
- * Informasi tentang Marital Status dapat dilihat di: https://www.hl7.org/fhir/valueset-marital-status.html
+ * Informasi tentang Marital Status dapat dilihat di: https://www.hl7.org/fhir/R4/valueset-marital-status.html
  */
 $patient->setMaritalStatus('{marital_code}', '{marital_display}');
 
@@ -197,7 +210,7 @@ $condition->addClinicalStatus('{status_klinis}'); // active, inactive, resolved.
 $condition->addCategory('{kategori}'); // Diagnosis, Keluhan. Default : Diagnosis
 $condition->addCode('{kode_icd_10}'); // Kode ICD10
 $condition->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
-$condition->setPerformer('{id_performer}', '{nama_performer}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
+$condition->setPerformer('{id_performer}', '{nama_performer}'); // ID SATUSEHAT Performer dan Nama SATUSEHAT
 $condition->setEncounter('{id_encounter}'); // ID SATUSEHAT Encounter
 $condition->setOnsetDateTime('{timestamp_onset}'); // timestamp onset. Timestamp sekarang
 $condition->setRecordedDate('{timestamp_recorded}'); // timestamp recorded. Timestamp sekarang
