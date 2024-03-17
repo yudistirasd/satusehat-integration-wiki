@@ -109,6 +109,7 @@ Pertama-tama import class dari FHIR Class Object :
 
 use Satusehat\Integration\FHIR\Organization;
 use Satusehat\Integration\FHIR\Location;
+use Satusehat\Integration\FHIR\Patient;
 use Satusehat\Integration\FHIR\Encounter;
 use Satusehat\Integration\FHIR\Condition;
 ```
@@ -132,21 +133,54 @@ $location->addPhysicalType('{tipe_lokasi}'); // ro = ruangan, bu = bangunan, wi 
 $location->json();
 ```
 
+## Patient
+```php
+// Patient
+$patient = new Patient;
+$patient->addIdentifier('{nik/nik-ibu}', '{nomor_nik}');
+$patient->setName('{nama_pasien}');
+
+/*
+ *  Informasi tentang parameter addTelecom dapat dilihat di:
+ *  telecom_code: https://www.hl7.org/fhir/R5/valueset-contact-point-system.html 
+ *  telecom_use: https://www.hl7.org/fhir/R5/valueset-contact-point-use.html
+*/
+$patient->addTelecom('{telecom_code}', '{nomor_telecom}', '{telecom_use}');
+
+$patient->setGender('{male/female}');
+$patient->setBirthDate('{YYYY-MM-DD}');
+$patient->setDeceased('{boolean}');
+$patient->setAddress($address_detail);
+
+/*
+ * Informasi tentang Marital Status dapat dilihat di: https://www.hl7.org/fhir/valueset-marital-status.html
+ */
+$patient->setMaritalStatus('{marital_code}', '{marital_display}');
+
+$patient->setMultipleBirth('{boolean/integer}'); // Menunjukkan apakah pasien merupakan bagian dari kembar (boolean) atau menunjukkan urutan kelahiran yang sebenarnya (integer)
+
+$patient->setEmergencyContact('{nama_kontak}', '{nomor_kontak}');
+$patient->setCommunication('id-ID', 'Indonesian', true); // Bahasa pasien
+
+$patient->json();
+```
+
 ## Encounter
 ```php
 // Encounter
 $encounter = new Encounter;
 
 /** 
- * timestamp_kedatangan, timestamp_pemeriksaan, timestamp_pulang berupa datetime dan nanti akan dikonversi menjadi ATOM format (Y-m-dTH:i:s+UTC)
+ * timestamp_kedatangan, timestamp_mulai/akhir_pemeriksaan, timestamp_pulang berupa datetime dan nanti akan dikonversi menjadi ATOM format (Y-m-dTH:i:s+UTC)
  * Contoh : 31 Desember 2022 15:45 WIB : 2022-12-31T15:45:00+07:00
 */
-$statusHistory = ['arrived' => '{timestamp_kedatangan}', 
-                    'inprogress' => '{timestamp_pemeriksaan}', 
-                    'finished' => '{timestamp_pulang}']; 
 
 $encounter->addRegistrationId('{kode_registrasi}'); // unique string free text (increments / UUID)
-$encounter->addStatusHistory($statusHistory); // array of timestamp
+
+$encounter->setArrived('{timestamp_kedatangan}');
+$encounter->setInProgress('{timestamp_mulai_pemeriksaan}', '{timestamp_akhir_pemeriksaan}');
+$encounter->setFinished('{timestamp_pulang}');
+
 $encounter->setConsultationMethod('{metode_konsultasi}'); // RAJAL, IGD, RANAP, HOMECARE, TELEKONSULTASI
 $encounter->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
 $encounter->addParticipant('{id_practitioner}', '{nama_dokter}'); // ID SATUSEHAT Dokter, Nama Dokter
@@ -163,6 +197,7 @@ $condition->addClinicalStatus('{status_klinis}'); // active, inactive, resolved.
 $condition->addCategory('{kategori}'); // Diagnosis, Keluhan. Default : Diagnosis
 $condition->addCode('{kode_icd_10}'); // Kode ICD10
 $condition->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
+$condition->setPerformer('{id_performer}', '{nama_performer}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
 $condition->setEncounter('{id_encounter}'); // ID SATUSEHAT Encounter
 $condition->setOnsetDateTime('{timestamp_onset}'); // timestamp onset. Timestamp sekarang
 $condition->setRecordedDate('{timestamp_recorded}'); // timestamp recorded. Timestamp sekarang
