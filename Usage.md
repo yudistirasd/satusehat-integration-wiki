@@ -54,22 +54,22 @@ use Satusehat\Integration\OAuth2Client;
 $client = new OAuth2Client;
 
 // Organization
-[$statusCode, $response] = $client->get('Organization', '{id}');
+[$statusCode, $response] = $client->get_by_id('Organization', '{id}');
 
 // Location
-[$statusCode, $response] = $client->get('Location', '{id}');
+[$statusCode, $response] = $client->get_by_id('Location', '{id}');
 
 // Patient
-[$statusCode, $response] = $client->get('Patient', '{id}');
+[$statusCode, $response] = $client->get_by_id('Patient', '{id}');
 
 // Practitioner
-[$statusCode, $response] = $client->get('Practitioner', '{id}');
+[$statusCode, $response] = $client->get_by_id('Practitioner', '{id}');
 
 // Encounter
-[$statusCode, $response] = $client->get('Encounter', '{id}');
+[$statusCode, $response] = $client->get_by_id('Encounter', '{id}');
 
 // Condition
-[$statusCode, $response] = $client->get('Condition', '{id}');
+[$statusCode, $response] = $client->get_by_id('Condition', '{id}');
 ```
 
 ## GET by NIK
