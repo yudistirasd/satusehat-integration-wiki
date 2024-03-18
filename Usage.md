@@ -210,7 +210,6 @@ $condition->addClinicalStatus('{status_klinis}'); // active, inactive, resolved.
 $condition->addCategory('{kategori}'); // Diagnosis, Keluhan. Default : Diagnosis
 $condition->addCode('{kode_icd_10}'); // Kode ICD10
 $condition->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
-$condition->setPerformer('{id_performer}', '{nama_performer}'); // ID SATUSEHAT Performer dan Nama SATUSEHAT
 $condition->setEncounter('{id_encounter}'); // ID SATUSEHAT Encounter
 $condition->setOnsetDateTime('{timestamp_onset}'); // timestamp onset. Timestamp sekarang
 $condition->setRecordedDate('{timestamp_recorded}'); // timestamp recorded. Timestamp sekarang
