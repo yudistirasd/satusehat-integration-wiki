@@ -112,6 +112,7 @@ use Satusehat\Integration\FHIR\Location;
 use Satusehat\Integration\FHIR\Patient;
 use Satusehat\Integration\FHIR\Encounter;
 use Satusehat\Integration\FHIR\Condition;
+use Satusehat\Integration\FHIR\Bundle;
 ```
 
 ## Organization
@@ -217,6 +218,40 @@ $condition->json();
 
 ```
 
+## Bundle (Encounter & Condition)
+```php
+// Buat dulu Encounternya
+$encounter = new Encounter;
+$encounter->addRegistrationId('{kode_registrasi}'); // unique string free text (increments / UUID)
+$encounter->setArrived('{timestamp_kedatangan}');
+$encounter->setInProgress('{timestamp_mulai_pemeriksaan}', '{timestamp_akhir_pemeriksaan}');
+$encounter->setFinished('{timestamp_pulang}');
+$encounter->setConsultationMethod('{metode_konsultasi}'); // RAJAL, IGD, RANAP, HOMECARE, TELEKONSULTASI
+$encounter->setSubject('{id_patient}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
+$encounter->addParticipant('{id_practitioner}', '{nama_dokter}'); // ID SATUSEHAT Dokter, Nama Dokter
+$encounter->addLocation('{id_location}', '{nama_poli}'); // ID SATUSEHAT Location, Nama Poli
+
+// Buat Condition
+$condition1 = new Condition;
+$condition1->addClinicalStatus(); // active, inactive, resolved. Default bila tidak dideklarasi = active
+$condition1->addCategory('Diagnosis'); // Diagnosis, Keluhan. Default : Diagnosis
+$condition1->addCode('{kode_icd10}'); // Kode ICD10
+$condition1->setSubject('{id_pasien}', '{nama_pasien}'); // ID SATUSEHAT Pasien dan Nama SATUSEHAT
+$condition1->setOnsetDateTime({timestamp_onset}); // timestamp onset. Timestamp sekarang
+$condition1->setRecordedDate({timestamp_recorded}); // timestamp recorded. Timestamp sekarang
+$condition1->json();
+
+// Jika terdapat 2 condition
+$condition2 = new Condition;
+// Data pendukung condition
+
+// Setelah Encounter dan Condition dibuat, kita buat bundlenya
+$bundle = new Bundle;
+$bundle->addEncounter($encounter)
+$bundle->addCondition($condition1)
+$bundle->addCondition($condition2) // Jika terdapat 1 atau lebih condition
+```
+
 # 5. POST / PUT menggunakan FHIR Class Object
 Proses GET / POST / PUT melalui FHIR class Object, tidak perlu lagi menggunakan deklarasi kelas OAuth2Client.<br>
 Hasil balikan dari POST & PUT adalah kode status HTTP dan response body (JSON)
@@ -237,4 +272,7 @@ Hasil balikan dari POST & PUT adalah kode status HTTP dan response body (JSON)
 // Condition
 [$statusCode, $response] = $condition->post();
 [$statusCode, $response] = $condition->put('{condition_id}');
+
+// Bundle
+[$statusCode, $response] = $bundle->post();
 ```
