@@ -1,5 +1,10 @@
 ## Mandatory Feature for SATUSEHAT Rawat Jalan
-Based on : SATUSEHAT Mandate PMK 24 tahun 2022 (Deadline December 2023)
+Based on : SATUSEHAT Mandate PMK 24 tahun 2022 and SATUSEHAT Guideline
+
+#### 0. Terminology / Masterdata Model Availability
+- [x] ICD-10 : Diagnosis
+- [x] ICD-9CM : Procedure
+- [x] Kode Wilayah Indonesia
 
 #### 1. OAuth, KYC, Bundle Operation
 - [x] OAuth2 (POST)
@@ -19,6 +24,7 @@ Based on : SATUSEHAT Mandate PMK 24 tahun 2022 (Deadline December 2023)
 #### 4. Patient
 - [x] Patient GET by NIK
 - [x] Patient GET by ID
+- [x] Patient update NIK Identifier (NEW)
 
 #### 5. Practitioner
 - [x] Practitioner GET by NIK
