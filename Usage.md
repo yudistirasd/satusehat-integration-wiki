@@ -142,11 +142,12 @@ $patient->addIdentifier('{nik/nik-ibu}', '{nomor_nik}');
 $patient->setName('{nama_pasien}');
 
 /*
- *  Informasi tentang parameter addTelecom dapat dilihat di:
- *  telecom_code: https://www.hl7.org/fhir/R4/valueset-contact-point-system.html 
- *  telecom_use: https://www.hl7.org/fhir/R4/valueset-contact-point-use.html
+ *  Defaultnya adalah nomor telepon. Kalau ingin yang lain bisa seperti
+ *  $patient->addTelecom('{telecom_value}', '{telecom_system}', '{telecom_use}')
+ *  Telecom system : https://www.hl7.org/fhir/R4/valueset-contact-point-system.html
+ *  Telecom use : https://www.hl7.org/fhir/R4/valueset-contact-point-use.html
 */
-$patient->addTelecom('{telecom_code}', '{nomor_telecom}', '{telecom_use}');
+$patient->addTelecom('{nomor_telepon}');
 
 $address_detail = [
     'address' => '{alamat}',
@@ -166,15 +167,12 @@ $patient->setBirthDate('{YYYY-MM-DD}');
 $patient->setDeceased('{boolean}');
 $patient->setAddress($address_detail);
 
-/*
- * Informasi tentang Marital Status dapat dilihat di: https://www.hl7.org/fhir/R4/valueset-marital-status.html
- */
-$patient->setMaritalStatus('{marital_code}', '{marital_display}');
+$patient->setMaritalStatus('{marital_status}');  // Married, unmarried, never, divorced, widowed
 
-$patient->setMultipleBirth('{boolean/integer}'); // Menunjukkan apakah pasien merupakan bagian dari kembar (boolean) atau menunjukkan urutan kelahiran yang sebenarnya (integer)
+$patient->setMultipleBirth('{integer}'); // menunjukkan urutan kelahiran yang sebenarnya
 
 $patient->setEmergencyContact('{nama_kontak}', '{nomor_kontak}');
-$patient->setCommunication('id-ID', 'Indonesian', true); // Bahasa pasien
+$patient->setCommunication(); // Bahasa pasien, default Indonesian
 
 $patient->json();
 ```
@@ -264,6 +262,9 @@ Hasil balikan dari POST & PUT adalah kode status HTTP dan response body (JSON)
 // Location
 [$statusCode, $response] = $location->post();
 [$statusCode, $response] = $location->put('{location_id}');
+
+// Patient
+[$statusCode, $response] = $patient->post();
 
 // Encounter
 [$statusCode, $response] = $encounter->post();
