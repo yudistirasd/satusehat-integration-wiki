@@ -5,6 +5,8 @@ Based on : SATUSEHAT Mandate PMK 24 tahun 2022 and SATUSEHAT Guideline
 - [x] ICD-10 : Diagnosis
 - [x] ICD-9CM : Procedure
 - [x] Kode Wilayah Indonesia
+- [ ] LOINC (Future)
+- [ ] SNOMED-CT (Future)
 
 #### 1. OAuth, KYC, Bundle Operation
 - [x] OAuth2 (POST)
@@ -41,7 +43,11 @@ Based on : SATUSEHAT Mandate PMK 24 tahun 2022 and SATUSEHAT Guideline
 - [x] Condition POST
 - [x] Condition PUT
 
-#### 8. Observation Vital Sign (WIP)
+#### 8. Bundle component and UUID linkage
+- [x] Encounter
+- [x] Condition
+
+#### 9. Observation Vital Sign (WIP)
 - [ ] Observation GET
 - [ ] Observation POST
 - [ ] Observation GET
