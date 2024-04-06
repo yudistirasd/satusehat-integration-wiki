@@ -51,3 +51,5 @@ Based on : SATUSEHAT Mandate PMK 24 tahun 2022 and SATUSEHAT Guideline
 - [ ] Observation GET
 - [ ] Observation POST
 - [ ] Observation GET
+
+#### 10. Kamus Farmasi & Alat Kesehantan (KFA)

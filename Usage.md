@@ -1,7 +1,7 @@
 # 1. Manually Create Token
 
 ```php
-/** 
+/**
  * Uji coba echo Token yang sesuai dan di DB akan tersimpan
  * Pastikan sudah mengisi konfigurasi di .env
 */
@@ -11,10 +11,11 @@ echo $client->token(); // OAuth2Token anda akan muncul
 ```
 
 # 2. KYC (Verifikasi SATUSEHAT Centang Biru)
-*Note : Wajib dilakukan pada konfigurasi .env ```SATUEHAT_ENV=PROD```
+
+\*Note : Wajib dilakukan pada konfigurasi .env `SATUEHAT_ENV=PROD`
 
 ```php
-/** 
+/**
  * Pastikan sudah mengisi konfigurasi di .env
  * Proses KYC tidak perlu lagi menggunakan deklarasi OAuth2Client->token()
 */
@@ -28,7 +29,7 @@ $kyc = new KYC;
 $json = $kyc->generateUrl('{nama_verifikator}', '{nik_verifikator}');
 $kyc_link = json_decode($json, true);
 
-/** 
+/**
  * Melakukan route redirect ke link KYC
  * saat ini hanya bisa dibuka pada tab baru / pop-up
  * tidak bisa melalui iframe
@@ -37,14 +38,15 @@ return redirect($kyc_link['data']['url']);
 ```
 
 # 3. FHIR Resource Agnostic Operation
+
 - Fungsi dasar GET, POST, PUT sudah ditambahkan pada kelas OAuth2Client.
-- Proses GET / POST / PUT, tidak perlu lagi menggunakan deklarasi ```OAuth2Client->token()```
+- Proses GET / POST / PUT, tidak perlu lagi menggunakan deklarasi `OAuth2Client->token()`
 - Hasil balikan dari GET adalah kode status HTTP dan response body (JSON)
 
 ## Contoh GET by ID
 
 ```php
-/** 
+/**
  * Hasil balikan dari GET / POST / PUT adalah kode status HTTP dan response body (JSON)
 */
 <?php
@@ -102,8 +104,10 @@ echo $statusCode, $response;
 ```
 
 # 4. Menggunakan FHIR Class Object
+
 Untuk mempermudah pembuatan FHIR Object data type, dapat menggunakan class object yang sudah disediakan.<br>
 Pertama-tama import class dari FHIR Class Object :
+
 ```php
 <?php
 
@@ -113,9 +117,11 @@ use Satusehat\Integration\FHIR\Patient;
 use Satusehat\Integration\FHIR\Encounter;
 use Satusehat\Integration\FHIR\Condition;
 use Satusehat\Integration\FHIR\Bundle;
+use Satusehat\Integration\FHIR\KFA;
 ```
 
 ## Organization
+
 ```php
 // Organization
 $organization = new Organization;
@@ -125,6 +131,7 @@ $organization->json();
 ```
 
 ## Location
+
 ```php
 // Location
 $location = new Location;
@@ -135,6 +142,7 @@ $location->json();
 ```
 
 ## Patient
+
 ```php
 // Patient
 $patient = new Patient;
@@ -178,11 +186,12 @@ $patient->json();
 ```
 
 ## Encounter
+
 ```php
 // Encounter
 $encounter = new Encounter;
 
-/** 
+/**
  * timestamp_kedatangan, timestamp_mulai/akhir_pemeriksaan, timestamp_pulang berupa datetime dan nanti akan dikonversi menjadi ATOM format (Y-m-dTH:i:s+UTC)
  * Contoh : 31 Desember 2022 15:45 WIB : 2022-12-31T15:45:00+07:00
 */
@@ -202,6 +211,7 @@ $encounter->json();
 ```
 
 ## Condition
+
 ```php
 // Condition
 $condition = new Condition;
@@ -217,6 +227,7 @@ $condition->json();
 ```
 
 ## Bundle (Encounter & Condition)
+
 ```php
 // Buat dulu Encounternya
 $encounter = new Encounter;
@@ -250,7 +261,48 @@ $bundle->addCondition($condition1)
 $bundle->addCondition($condition2) // Jika terdapat 1 atau lebih condition
 ```
 
+## Kamus Farmasi & Alat Kesehantan (KFA)
+
+> Pencarian Produk dengan Paginasi
+
+```php
+$kfa = new KFA();
+
+//Parameter yang tersedia
+$kfa->getProducts(
+    productType: "'alkes' | 'farmasi'" // wajib,
+    keyword: null, // Opsional
+    page: 1 // opsional, default 1 maksimal ~
+    size: 100 // opsional, default 100 maksimal 1000
+);
+
+// Contoh pencarian produk kfa menggunakan named parameter
+[$statusCode, $response] = $kfa->getProducts(productType: 'farmasi', keyword: 'paracet', size: 200);
+
+//Contoh pencarian produk kfa tanpa named parameter
+[$statusCode, $response] = $kfa->getProducts('farmasi', 'paracet', 1, 200);
+
+```
+
+> Detail Produk KFA
+
+```php
+$kfa = new KFA();
+//Parameter yang tersedia
+$kfa->getProduct(
+    identifier: "'kfa' | 'lkpp' | 'nie'" // wajib,
+    code: "1234567", // wajib
+);
+
+// Contoh detail produk kfa menggunakan named parameter
+[$statusCode, $response] = $kfa->getProducts(identifier: 'kfa', code: '93000108');
+
+//Contoh detail produk kfa tanpa named parameter
+[$statusCode, $response] = $kfa->getProducts('kfa', '93000108');
+```
+
 # 5. POST / PUT menggunakan FHIR Class Object
+
 Proses GET / POST / PUT melalui FHIR class Object, tidak perlu lagi menggunakan deklarasi kelas OAuth2Client.<br>
 Hasil balikan dari POST & PUT adalah kode status HTTP dan response body (JSON)
 
